@@ -8,6 +8,7 @@
     <title>Document</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Black+Han+Sans&display=swap');
 
@@ -66,7 +67,69 @@
         .teamtxt{
             padding-top: 15px;
         }
+
+        .mycards {
+            width: 1200px;
+            margin: 20px auto 20px auto;
+        }
+
+        .button {
+            width: 200px;
+            margin: 20px auto 10px auto;
+        }
+
+        .btn {
+            width: 80px;
+            margin: 5px;
+        }
+
+        .mypostingbox {
+            width: 500px;
+            margin: 20px auto 20px auto;
+            padding: 10px;
+            border: 1px solid wheat;
+        }
+
+        .mypostingbox>mybtn {
+            width: 300px;
+            margin: 0px auto 0px auto;
+        }
     </style>
+   <script>
+    function openclose() {
+        $('#postingbox').toggle();
+    }
+
+    function makecard() {
+        let url = $('#url').val();
+        let name = $('#name').val();
+        let addr = $('#addr').val();
+        let advantage = $('#advantage').val();
+        let Mbti = $('#Mbti').val();
+        let introduce = $('#introduce').val();
+        let workstyle = $('#workstyle').val();
+        let condition = $('#condition').val();
+        let work = $('#work').val();
+
+        let temp_html = `
+        <div class="col">
+                <div class="card h-100">
+                    <img src="${url}" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">${name}</h5>
+                        <p class="card-text">${condition}</p>
+
+                        <button id="btn" type="button" class="btn btn-outline-info">수정</button>
+                        <button id="btn" type="button" class="btn btn-outline-success">보기</button>
+                    </div>
+                </div>
+            </div>`;
+        $('#card').append(temp_html);
+    }
+
+</script>
+
+
 </head>
 
 <body>
@@ -89,7 +152,121 @@
         </div>
     </div>
 
+    <div class="mycards">
+        <div id="card" class="row row-cols-1 row-cols-md-5 g-4">
+            <div class="col">
+                <div class="card h-100">
+                    <img src="이미지주소" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">이름</h5>
+                        <p class="card-text">활동상태</p>
 
+                        <button id="btn" type="button" class="btn btn-outline-info">수정</button>
+                        <button id="btn" type="button" class="btn btn-outline-success">보기</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card h-100">
+                    <img src="https://itshu.co.kr/web/upload/NNEditor/20240322/bd411d912c48ebcca1d976e758c73fea.jpg"
+                        class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">이름 나지윤</h5>
+                        <p class="card-text">활동상태</p>
+
+                        <button id="btn" type="button" class="btn btn-outline-info">수정</button>
+                        <button id="btn" type="button" class="btn btn-outline-success">보기</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card h-100">
+                    <img src="이미지주소" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">이름</h5>
+                        <p class="card-text">활동상태</p>
+
+                        <button id="btn" type="button" class="btn btn-outline-info">수정</button>
+                        <button id="btn" type="button" class="btn btn-outline-success">보기</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card h-100">
+                    <img src="이미지주소" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">이름</h5>
+                        <p class="card-text">활동상태</p>
+
+                        <button id="btn" type="button" class="btn btn-outline-info">수정</button>
+                        <button id="btn" type="button" class="btn btn-outline-success">보기</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card h-100">
+                    <img src="이미지주소" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">이름</h5>
+                        <p class="card-text">활동상태</p>
+
+                        <button id="btn" type="button" class="btn btn-outline-info">수정</button>
+                        <button id="btn" type="button" class="btn btn-outline-success">보기</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div onclick="openclose()" class="button">
+        <button type="button" class="button btn-light">새 멤버 추가</button>
+    </div>
+
+    <div class="mypostingbox" id="postingbox">
+
+        <div class="form-floating mb-3">
+            <input type="email" class="form-control" id="url" placeholder="name@example.com">
+            <label for="floatingInput">이미지주소</label>
+        </div>
+        <div class="form-floating mb-3">
+            <input type="email" class="form-control" id="name" placeholder="name@example.com">
+            <label for="floatingInput">이름</label>
+        </div>
+        <div class="form-floating mb-3">
+            <input type="email" class="form-control" id="addr" placeholder="name@example.com">
+            <label for="floatingInput">블로그주소</label>
+        </div>
+        <div class="form-floating mb-3">
+            <input type="email" class="form-control" id="advantage" placeholder="name@example.com">
+            <label for="floatingInput">장점</label>
+        </div>
+        <div class="form-floating mb-3">
+            <input type="email" class="form-control" id="Mbti" placeholder="name@example.com">
+            <label for="floatingInput">Mbti</label>
+        </div>
+        <div class="form-floating mb-3">
+            <input type="email" class="form-control" id="introduce" placeholder="name@example.com">
+            <label for="floatingInput">자기소개</label>
+        </div>
+        <div class="form-floating mb-3">
+            <input type="email" class="form-control" id="workstyle" placeholder="name@example.com">
+            <label for="floatingInput">협업스타일</label>
+        </div>
+        <div class="form-floating mb-3">
+            <input type="email" class="form-control" id="condition" placeholder="name@example.com">
+            <label for="floatingInput">활동상태</label>
+        </div>
+        <div class="form-floating mb-3">
+            <input type="email" class="form-control" id="work" placeholder="name@example.com">
+            <label for="floatingInput">오늘의업무</label>
+        </div>
+        <div class="mybtn">
+            <button onclick="makecard()" type="button" class="button btn-light">등록</button>
+        </div>
+
+
+    </div>
 </body>
 
 </html>
