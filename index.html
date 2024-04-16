@@ -96,6 +96,8 @@
             width: 300px;
             margin: 0px auto 0px auto;
         }
+
+
     </style>
     <script type="module">
         // Firebase SDK 라이브러리 가져오기
@@ -140,7 +142,7 @@
                         <p class="card-text">${condition}</p>
 
                         <button id="btn" type="button" class="btn btn-outline-info">수정</button>
-                        <button id="btn" type="button" class="btn btn-outline-success">보기</button>
+                        <button id="btn" type="button" class="btn btn-outline-success showbtn">보기</button>
                         <button id="btn" data-docid="${doc.id}" type="button" class="btn btn-outline-danger deletebtn">삭제</button>
                     </div>
                 </div>
@@ -179,6 +181,11 @@
             $('#postingbox').toggle();
         });
 
+        $(".showbtn").click(async function () {
+            $('#postingbox1').toggle();
+           
+        });
+
         // 데이터 삭제
         $(".deletebtn").click(async function () {
             const docId = $(this).data("docid");
@@ -187,6 +194,8 @@
             console.log("삭제 완료");
             window.location.reload();
         });
+
+        
     </script>
 </head>
 
@@ -215,6 +224,28 @@
         <div id="card" class="row row-cols-1 row-cols-md-5 g-4">
         </div>
     </div>
+
+    <div class="mypostingbox" id="postingbox1">
+      <div class="card" style="width: 18rem;">
+          <img src="url()" class="card-img-top" alt="...">
+          <div class="card-body">
+              <h5 class="card-title">이름</h5>
+              <p class="card-text">블로그주소</p>
+              <p class="card-text">장점</p>
+              <p class="card-text">mbti</p>
+              <p class="card-text">자기소개</p>
+              <p class="card-text">협업스타일</p>
+              <p class="card-text">활동상태:</p>
+              <p class="card-text">오늘업무:</p>
+              <div class="button">
+                  
+                      <button type="button" class="button btn-light">닫기</button>
+
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
 
     <div id="openclose" class="button">
         <button type="button" class="button btn-light">새 멤버 추가</button>
