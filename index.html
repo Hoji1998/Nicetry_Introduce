@@ -8,7 +8,8 @@
     <title>Document</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Black+Han+Sans&display=swap');
 
@@ -43,7 +44,7 @@
             padding: 30px;
             margin: 30px;
 
-            background-color:whitesmoke;
+            background-color: whitesmoke;
             border: 1px solid gray;
             border-radius: 5px;
 
@@ -58,13 +59,14 @@
             padding: 30px;
             margin: 30px;
 
-            background-color:whitesmoke;
+            background-color: whitesmoke;
             border: 1px solid grey;
             border-radius: 5px;
 
             font-family: "Nanum Gothic", sans-serif;
         }
-        .teamtxt{
+
+        .teamtxt {
             padding-top: 15px;
         }
 
@@ -95,23 +97,41 @@
             margin: 0px auto 0px auto;
         }
     </style>
-   <script>
-    function openclose() {
-        $('#postingbox').toggle();
-    }
+    <script type="module">
+        // Firebase SDK 라이브러리 가져오기
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
+        import { getFirestore, collection, addDoc, getDocs, doc, updateDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js";
+        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+        const firebaseConfig = {
+            apiKey: "AIzaSyAfl0Icu2gWzIUlzUPIoHQ82ugAmiWiXx0",
+            authDomain: "sparta-200f3.firebaseapp.com",
+            projectId: "sparta-200f3",
+            storageBucket: "sparta-200f3.appspot.com",
+            messagingSenderId: "476283521105",
+            appId: "1:476283521105:web:54dc6a8d3e206ec2185070",
+            measurementId: "G-CQ08EPL0C6"
+        };
 
-    function makecard() {
-        let url = $('#url').val();
-        let name = $('#name').val();
-        let addr = $('#addr').val();
-        let advantage = $('#advantage').val();
-        let Mbti = $('#Mbti').val();
-        let introduce = $('#introduce').val();
-        let workstyle = $('#workstyle').val();
-        let condition = $('#condition').val();
-        let work = $('#work').val();
+        // Firebase 인스턴스 초기화
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
 
-        let temp_html = `
+        // 데이터 조회
+        let docs = await getDocs(collection(db, "introduceTeamMembers"));
+        docs.forEach((doc) => {
+            let row = doc.data();
+
+            let url = row['url'];
+            let name = row['name'];
+            let addr = row['addr'];
+            let advantage = row['advantage'];
+            let Mbti = row['Mbti'];
+            let introduce = row['introduce'];
+            let workstyle = row['workstyle'];
+            let condition = row['condition'];
+            let work = row['work'];
+
+            let temp_html = `
         <div class="col">
                 <div class="card h-100">
                     <img src="${url}" class="card-img-top" alt="...">
@@ -121,15 +141,53 @@
 
                         <button id="btn" type="button" class="btn btn-outline-info">수정</button>
                         <button id="btn" type="button" class="btn btn-outline-success">보기</button>
+                        <button id="btn" data-docid="${doc.id}" type="button" class="btn btn-outline-danger deletebtn">삭제</button>
                     </div>
                 </div>
             </div>`;
-        $('#card').append(temp_html);
-    }
+            $('#card').append(temp_html);
+        });
 
-</script>
+        $("#makecard").click(async function () {
+            let url = $('#url').val();
+            let name = $('#name').val();
+            let addr = $('#addr').val();
+            let advantage = $('#advantage').val();
+            let Mbti = $('#Mbti').val();
+            let introduce = $('#introduce').val();
+            let workstyle = $('#workstyle').val();
+            let condition = $('#condition').val();
+            let work = $('#work').val();
 
+            let doc = {
+                'url': url,
+                'name': name,
+                'addr': addr,
+                'advantage': advantage,
+                'Mbti': Mbti,
+                'introduce': introduce,
+                'workstyle': workstyle,
+                'condition': condition,
+                'work': work
+            }
+            await addDoc(collection(db, "introduceTeamMembers"), doc);
+            alert("저장완료");
+            window.location.reload();
+        })
 
+        $("#openclose").click(async function () {
+            $('#postingbox').toggle();
+        });
+
+        // 데이터 삭제
+        $(".deletebtn").click(async function () {
+            const docId = $(this).data("docid");
+            console.log(docId);
+            await deleteDoc(doc(db, "introduceTeamMembers", docId));
+            console.log("삭제 완료");
+            window.location.reload();
+        });
+    </script>
 </head>
 
 <body>
@@ -138,7 +196,8 @@
     </div>
     <div class="teamintro">
         <div class="A" style="display: inline-block">
-            <h1 class="card-title pricing-card-title"><strong>NT</strong><small class="text-body-secondary fw-light">(Nice Try)</small>
+            <h1 class="card-title pricing-card-title"><strong>NT</strong><small
+                    class="text-body-secondary fw-light">(Nice Try)</small>
             </h1>
             <p class="teamtxt">처음부터 완벽한 결과물 보다는<br>시도를 두려워하지 않으며'좋은 시도'였다는 마인드로<br>차근차근 성장해나가자는 의미</p>
         </div>
@@ -154,72 +213,10 @@
 
     <div class="mycards">
         <div id="card" class="row row-cols-1 row-cols-md-5 g-4">
-            <div class="col">
-                <div class="card h-100">
-                    <img src="이미지주소" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">이름</h5>
-                        <p class="card-text">활동상태</p>
-
-                        <button id="btn" type="button" class="btn btn-outline-info">수정</button>
-                        <button id="btn" type="button" class="btn btn-outline-success">보기</button>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="card h-100">
-                    <img src="https://itshu.co.kr/web/upload/NNEditor/20240322/bd411d912c48ebcca1d976e758c73fea.jpg"
-                        class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">이름 나지윤</h5>
-                        <p class="card-text">활동상태</p>
-
-                        <button id="btn" type="button" class="btn btn-outline-info">수정</button>
-                        <button id="btn" type="button" class="btn btn-outline-success">보기</button>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="card h-100">
-                    <img src="이미지주소" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">이름</h5>
-                        <p class="card-text">활동상태</p>
-
-                        <button id="btn" type="button" class="btn btn-outline-info">수정</button>
-                        <button id="btn" type="button" class="btn btn-outline-success">보기</button>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="card h-100">
-                    <img src="이미지주소" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">이름</h5>
-                        <p class="card-text">활동상태</p>
-
-                        <button id="btn" type="button" class="btn btn-outline-info">수정</button>
-                        <button id="btn" type="button" class="btn btn-outline-success">보기</button>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="card h-100">
-                    <img src="이미지주소" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">이름</h5>
-                        <p class="card-text">활동상태</p>
-
-                        <button id="btn" type="button" class="btn btn-outline-info">수정</button>
-                        <button id="btn" type="button" class="btn btn-outline-success">보기</button>
-                    </div>
-                </div>
-            </div>
-
         </div>
     </div>
 
-    <div onclick="openclose()" class="button">
+    <div id="openclose" class="button">
         <button type="button" class="button btn-light">새 멤버 추가</button>
     </div>
 
@@ -262,7 +259,7 @@
             <label for="floatingInput">오늘의업무</label>
         </div>
         <div class="mybtn">
-            <button onclick="makecard()" type="button" class="button btn-light">등록</button>
+            <button id="makecard" type="button" class="button btn-light">등록</button>
         </div>
 
 
