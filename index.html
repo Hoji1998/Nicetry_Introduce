@@ -324,13 +324,13 @@
                         <p class="card-text">${comment}</p>
                     </div>
                     <div class="cmtdlt" style=" text-align: center;">
-                    <button id="cmtdltbtn" data-docid="${doc.id} type="button" class="btn btn-outline-secondaryn cmtdltbtn">삭제</button>
+                    <button id="cmtdltbtn" data-docid="${doc.id}" type="button" class="btn btn-outline-secondary cmtdltbtn">삭제</button>
                     </div>
                 </div>
             </div>`;
             $('#visitcomment').append(temp_html);
         });
-                   
+
 
         $(".cmtdltbtn").click(async function () {
             const docId = $(this).data("docid");
