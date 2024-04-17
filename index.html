@@ -28,7 +28,7 @@
 
             font-family: "Black Han Sans", sans-serif;
         }
-
+        
         .teamintro {
 
             width: 1500px;
@@ -39,7 +39,7 @@
             align-items: center;
             justify-content: center;
         }
-
+        
         /*todolist*/
         #inputField #todoInput {
             width: calc(100% - 45px);
@@ -432,7 +432,7 @@
             //saveItemsFn();
         };
         //
-        $("#commentbtn").click(async function () {
+            $("#commentbtn").click(async function () {
             let nickname = $('#nickname').val();
             let comment = $('#comment').val();
 
@@ -461,11 +461,22 @@
                         <h5 class="card-title">${nickname}</h5>
                         <p class="card-text">${comment}</p>
                     </div>
+                    <div class="cmtdlt" style=" text-align: center;">
+                    <button id="cmtdltbtn" data-docid="${doc.id}" type="button" class="btn btn-outline-secondary cmtdltbtn">삭제</button>
+                    </div>
                 </div>
             </div>`;
             $('#visitcomment').append(temp_html);
         });
 
+
+        $(".cmtdltbtn").click(async function () {
+            const docId = $(this).data("docid");
+            console.log(docId);
+            await deleteDoc(doc(db, "comments", docId));
+            console.log("삭제 완료");
+            window.location.reload();
+        });
 
     </script>
 </head>
@@ -508,6 +519,7 @@
                     <p class="card-text">자기소개</p>
                     <p class="card-text">협업스타일</p>
                     <p class="card-text">활동상태:</p>
+                    <p class="card-text">오늘업무:</p>
                     <div id="inputField">
                         <input type="text" id="todoInput" placeholder="할 일 추가하기">
                         <button class="btn btn-primary" type="button" id="addBtn">
