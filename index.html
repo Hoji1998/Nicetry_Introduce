@@ -121,6 +121,42 @@
             transition: box-shadow 0.2s;
         }
 
+        #todoList {
+            list-style: none;
+            margin: 0;
+            padding: 10px;
+            text-align: left;
+        }
+        #todoList li {
+            padding: 10px 0;
+            user-select: none;
+        }
+
+        #todoList button {
+            width: 15px;
+            height: 15px;
+            background-color: #00ff22;
+            margin-right: 8px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        #todoList li.complete {
+            text-decoration: line-through;
+            color: green;
+        }
+
+        #todoList li.complete button::after {
+            content: "";
+            display: block;
+            width: 5px;
+            height: 10px;
+            transform: translate(-2px, -2px) rotate(45deg);
+            border-right: 2px solid #f1b116;
+            border-bottom: 2px solid #f1b116;
+        }
+
         .info_close {
             margin: 0px 10px 0px 10px
         }
@@ -224,7 +260,7 @@
             $('#postingbox').toggle();
         });
 
-        $("#info_close_button").click(async function () {
+        $(".info_close_button").click(async function () {
             $('#postingbox1').toggle();
         })
 
@@ -306,7 +342,12 @@
                     <p class="card-text">자기소개</p>
                     <p class="card-text">협업스타일</p>
                     <p class="card-text">활동상태:</p>
-                    <p class="card-text">오늘업무:</p>
+                    <ul id="todoList">
+                        <li class= complete>
+                            <button></button>
+                            <div class="card-text"></div>
+                        </li>
+                    </ul>
                 </div>
                 <div class="info_close">
                     <button type="button" id="info_close_button" class="info_close_button btn-light">닫기</button>
