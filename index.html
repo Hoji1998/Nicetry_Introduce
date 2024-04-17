@@ -249,6 +249,12 @@
             }
         });
 
+        // 데이터 수정
+        $(".changebtn").click(async function () {
+            console.log("수정 완료");
+            window.location.reload();
+        });
+
         // 데이터 삭제
         $(".deletebtn").click(async function () {
             const docId = $(this).data("docid");
