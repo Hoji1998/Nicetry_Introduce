@@ -13,6 +13,10 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Black+Han+Sans&display=swap');
 
+        .Window{
+            width: 1500px;
+            margin:auto auto auto auto
+        }
 
         .mytitle {
             width: 700px;
@@ -28,7 +32,7 @@
         .teamintro {
 
             width: 1500px;
-            margin-top: 10px;
+            margin: 10px auto 0px auto;
 
             display: flex;
             flex-direction: row;
@@ -71,7 +75,7 @@
         }
 
         .mycards {
-            width: 1200px;
+            width: 1500px;
             margin: 20px auto 20px auto;
         }
 
@@ -85,24 +89,63 @@
             margin: 5px;
         }
 
+        .mypostingbox_1 {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            justify-content: center;
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1;
+        }
+
+        .mypostingbox_1 .info_card {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 20px;
+            background: #ffffff;
+            border-radius: 20px;
+        }
+
+        .mypostingbox_1 .info_card .info_close {
+            display: block;
+            padding: 0px 0px;
+            border: none;
+            border-radius: 5px;
+            color: #fff;
+            transition: box-shadow 0.2s;
+        }
+
+        .info_close {
+            margin: 0px 10px 0px 10px
+        }
+
         .mypostingbox {
             width: 500px;
             margin: 20px auto 20px auto;
-            padding: 10px;
+            padding: 9px;
             border: 1px solid wheat;
         }
 
         .mypostingbox>mybtn {
-            width: 300px;
+            width: 100px;
             margin: 0px auto 0px auto;
         }
 
-
+        .posting_button {
+            width: 100px;
+            margin: 20px 190px 10px 190px;
+        }
     </style>
     <script type="module">
         // Firebase SDK 라이브러리 가져오기
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
-        import { getFirestore, collection, addDoc, getDocs, doc, updateDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js";
+        import { getFirestore, collection, addDoc, getDocs, getDoc, doc, updateDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js";
         // For Firebase JS SDK v7.20.0 and later, measurementId is optional
         const firebaseConfig = {
             apiKey: "AIzaSyAfl0Icu2gWzIUlzUPIoHQ82ugAmiWiXx0",
@@ -136,13 +179,13 @@
             let temp_html = `
         <div class="col">
                 <div class="card h-100">
-                    <img src="${url}" class="card-img-top" alt="...">
+                    <img src="${url}" class="card-img-top" alt="..." width="200" height="200">
                     <div class="card-body">
                         <h5 class="card-title">${name}</h5>
                         <p class="card-text">${condition}</p>
 
                         <button id="btn" type="button" class="btn btn-outline-info">수정</button>
-                        <button id="btn" type="button" class="btn btn-outline-success showbtn">보기</button>
+                        <button id="btn" data-docid="${doc.id}" type="button" class="btn btn-outline-success showbtn">보기</button>
                         <button id="btn" data-docid="${doc.id}" type="button" class="btn btn-outline-danger deletebtn">삭제</button>
                     </div>
                 </div>
@@ -181,9 +224,29 @@
             $('#postingbox').toggle();
         });
 
-        $(".showbtn").click(async function () {
+        $("#info_close_button").click(async function () {
             $('#postingbox1').toggle();
-           
+        })
+
+        $(".showbtn").click(async function () {
+            const docId = $(this).data("docid");
+            const docSnapshot = await getDoc(doc(db, "introduceTeamMembers", docId));
+            if (docSnapshot.exists()) {
+                const data = docSnapshot.data();
+                $("#postingbox1 .card-img-top").attr("src", data.url);
+                $("#postingbox1 .card-title").text("이름: " + data.name);
+                $("#postingbox1 .card-text:eq(0)").text("블로그 주소: " + data.addr);
+                $("#postingbox1 .card-text:eq(1)").text("장점: " + data.advantage);
+                $("#postingbox1 .card-text:eq(2)").text("MBTI: " + data.Mbti);
+                $("#postingbox1 .card-text:eq(3)").text("자기소개: " + data.introduce);
+                $("#postingbox1 .card-text:eq(4)").text("협업 스타일: " + data.workstyle);
+                $("#postingbox1 .card-text:eq(5)").text("활동 상태: " + data.condition);
+                $("#postingbox1 .card-text:eq(6)").text("오늘의 업무: " + data.work);
+                $('#postingbox1').toggle();
+            }
+            else {
+                console.log("DB에 일치하는 데이터가 없습니다.");
+            }
         });
 
         // 데이터 삭제
@@ -195,105 +258,104 @@
             window.location.reload();
         });
 
-        
+
     </script>
 </head>
 
 <body>
-    <div class="mytitle">
-        <div style="font-size:50pt">Introduce NT </div>
-    </div>
-    <div class="teamintro">
-        <div class="A" style="display: inline-block">
-            <h1 class="card-title pricing-card-title"><strong>NT</strong><small
-                    class="text-body-secondary fw-light">(Nice Try)</small>
-            </h1>
-            <p class="teamtxt">처음부터 완벽한 결과물 보다는<br>시도를 두려워하지 않으며'좋은 시도'였다는 마인드로<br>차근차근 성장해나가자는 의미</p>
+    <div class="Window">
+        <div class="mytitle">
+            <div style="font-size:50pt">Introduce NT </div>
         </div>
-        <div class="B" style="display: inline-block">
-            <h1 class="card-title pricing-card-title"><strong>Team Rule</strong></h1>
-            <p class="teamtxt">
-            <h6>- 결석과 같은 사항이 있을 시, Slack 톡방을 통해 팀원에게 알리기</h6>
-            <h6>- 점심시간 13:00 ~ 14:00, 저녁시간 18:00 ~ 19:00 을 준수하기</h6>
-            <h6>- 모종의 이유로 식사시간이 달라질 경우 Slack 팀방 혹은 팀원에게 전달하기</h6>
-            </p>
-        </div>
-    </div>
-
-    <div class="mycards">
-        <div id="card" class="row row-cols-1 row-cols-md-5 g-4">
-        </div>
-    </div>
-
-    <div class="mypostingbox" id="postingbox1">
-      <div class="card" style="width: 18rem;">
-          <img src="url()" class="card-img-top" alt="...">
-          <div class="card-body">
-              <h5 class="card-title">이름</h5>
-              <p class="card-text">블로그주소</p>
-              <p class="card-text">장점</p>
-              <p class="card-text">mbti</p>
-              <p class="card-text">자기소개</p>
-              <p class="card-text">협업스타일</p>
-              <p class="card-text">활동상태:</p>
-              <p class="card-text">오늘업무:</p>
-              <div class="button">
-                  
-                      <button type="button" class="button btn-light">닫기</button>
-
-                  </div>
-              </div>
-          </div>
-      </div>
-  </div>
-
-    <div id="openclose" class="button">
-        <button type="button" class="button btn-light">새 멤버 추가</button>
-    </div>
-
-    <div class="mypostingbox" id="postingbox">
-
-        <div class="form-floating mb-3">
-            <input type="email" class="form-control" id="url" placeholder="name@example.com">
-            <label for="floatingInput">이미지주소</label>
-        </div>
-        <div class="form-floating mb-3">
-            <input type="email" class="form-control" id="name" placeholder="name@example.com">
-            <label for="floatingInput">이름</label>
-        </div>
-        <div class="form-floating mb-3">
-            <input type="email" class="form-control" id="addr" placeholder="name@example.com">
-            <label for="floatingInput">블로그주소</label>
-        </div>
-        <div class="form-floating mb-3">
-            <input type="email" class="form-control" id="advantage" placeholder="name@example.com">
-            <label for="floatingInput">장점</label>
-        </div>
-        <div class="form-floating mb-3">
-            <input type="email" class="form-control" id="Mbti" placeholder="name@example.com">
-            <label for="floatingInput">Mbti</label>
-        </div>
-        <div class="form-floating mb-3">
-            <input type="email" class="form-control" id="introduce" placeholder="name@example.com">
-            <label for="floatingInput">자기소개</label>
-        </div>
-        <div class="form-floating mb-3">
-            <input type="email" class="form-control" id="workstyle" placeholder="name@example.com">
-            <label for="floatingInput">협업스타일</label>
-        </div>
-        <div class="form-floating mb-3">
-            <input type="email" class="form-control" id="condition" placeholder="name@example.com">
-            <label for="floatingInput">활동상태</label>
-        </div>
-        <div class="form-floating mb-3">
-            <input type="email" class="form-control" id="work" placeholder="name@example.com">
-            <label for="floatingInput">오늘의업무</label>
-        </div>
-        <div class="mybtn">
-            <button id="makecard" type="button" class="button btn-light">등록</button>
+        <div class="teamintro">
+            <div class="A" style="display: inline-block">
+                <h1 class="card-title pricing-card-title"><strong>NT</strong><small
+                        class="text-body-secondary fw-light">(Nice Try)</small>
+                </h1>
+                <p class="teamtxt">처음부터 완벽한 결과물 보다는<br>시도를 두려워하지 않으며'좋은 시도'였다는 마인드로<br>차근차근 성장해나가자는 의미</p>
+            </div>
+            <div class="B" style="display: inline-block">
+                <h1 class="card-title pricing-card-title"><strong>Team Rule</strong></h1>
+                <p class="teamtxt">
+                <h6>- 결석과 같은 사항이 있을 시, Slack 톡방을 통해 팀원에게 알리기</h6>
+                <h6>- 점심시간 13:00 ~ 14:00, 저녁시간 18:00 ~ 19:00 을 준수하기</h6>
+                <h6>- 모종의 이유로 식사시간이 달라질 경우 Slack 팀방 혹은 팀원에게 전달하기</h6>
+                </p>
+            </div>
         </div>
 
+        <div class="mycards">
+            <div id="card" class="row row-cols-1 row-cols-md-6 g-4  ">
+            </div>
+        </div>
 
+        <div class="mypostingbox_1" id="postingbox1" style="display: none;">
+            <div class="info_card" style="width: 450px;">
+                <img src="url()" class="card-img-top" alt="..." width="400" height="400">
+                <div class="card-body">
+                    <h5 class="card-title">이름</h5>
+                    <p class="card-text">블로그주소</p>
+                    <p class="card-text">장점</p>
+                    <p class="card-text">mbti</p>
+                    <p class="card-text">자기소개</p>
+                    <p class="card-text">협업스타일</p>
+                    <p class="card-text">활동상태:</p>
+                    <p class="card-text">오늘업무:</p>
+                </div>
+                <div class="info_close">
+                    <button type="button" id="info_close_button" class="info_close_button btn-light">닫기</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="openclose" class="button">
+            <button type="button" class="button btn-light">새 멤버 추가</button>
+        </div>
+
+        <div class="mypostingbox" id="postingbox" style="display: none;">
+
+            <div class="form-floating mb-3">
+                <input type="email" class="form-control" id="url" placeholder="name@example.com">
+                <label for="floatingInput">이미지주소</label>
+            </div>
+            <div class="form-floating mb-3">
+                <input type="email" class="form-control" id="name" placeholder="name@example.com">
+                <label for="floatingInput">이름</label>
+            </div>
+            <div class="form-floating mb-3">
+                <input type="email" class="form-control" id="addr" placeholder="name@example.com">
+                <label for="floatingInput">블로그주소</label>
+            </div>
+            <div class="form-floating mb-3">
+                <input type="email" class="form-control" id="advantage" placeholder="name@example.com">
+                <label for="floatingInput">장점</label>
+            </div>
+            <div class="form-floating mb-3">
+                <input type="email" class="form-control" id="Mbti" placeholder="name@example.com">
+                <label for="floatingInput">Mbti</label>
+            </div>
+            <div class="form-floating mb-3">
+                <input type="email" class="form-control" id="introduce" placeholder="name@example.com">
+                <label for="floatingInput">자기소개</label>
+            </div>
+            <div class="form-floating mb-3">
+                <input type="email" class="form-control" id="workstyle" placeholder="name@example.com">
+                <label for="floatingInput">협업스타일</label>
+            </div>
+            <div class="form-floating mb-3">
+                <input type="email" class="form-control" id="condition" placeholder="name@example.com">
+                <label for="floatingInput">활동상태</label>
+            </div>
+            <div class="form-floating mb-3">
+                <input type="email" class="form-control" id="work" placeholder="name@example.com">
+                <label for="floatingInput">오늘의업무</label>
+            </div>
+            <div class="mybtn">
+                <button id="makecard" class="posting_button btn-light">등록</button>
+            </div>
+
+
+        </div>
     </div>
 </body>
 
