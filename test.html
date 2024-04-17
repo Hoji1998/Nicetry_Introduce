@@ -80,7 +80,7 @@
         }
 
         .button {
-            width: 200px;
+            width: 200px; 
             margin: 20px auto 10px auto;
         }
 
@@ -184,7 +184,7 @@
                         <h5 class="card-title">${name}</h5>
                         <p class="card-text">${condition}</p>
 
-                        <button id="btn" type="button" class="btn btn-outline-info">수정</button>
+                        <button id="btn" type="button" class="btn btn-outline-info changebtn">수정</button>
                         <button id="btn" data-docid="${doc.id}" type="button" class="btn btn-outline-success showbtn">보기</button>
                         <button id="btn" data-docid="${doc.id}" type="button" class="btn btn-outline-danger deletebtn">삭제</button>
                     </div>
@@ -249,6 +249,12 @@
             }
         });
 
+        // 데이터 수정
+        $(".changebtn").click(async function () {
+            console.log("수정 완료");
+            window.location.reload();
+        });
+        
         // 데이터 삭제
         $(".deletebtn").click(async function () {
             const docId = $(this).data("docid");
