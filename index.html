@@ -13,9 +13,9 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Black+Han+Sans&display=swap');
 
-        .Window{
+        .Window {
             width: 1500px;
-            margin:auto auto auto auto
+            margin: auto auto auto auto
         }
 
         .mytitle {
@@ -38,6 +38,80 @@
             flex-direction: row;
             align-items: center;
             justify-content: center;
+        }
+
+        /*todolist*/
+        #inputField #todoInput {
+            width: calc(100% - 45px);
+            border: 1px solid #eee;
+            border-radius: 4px;
+            padding: 10px;
+        }
+
+        #inputField #todoInput:focus {
+            outline: none;
+        }
+
+        #inputField #addBtn {
+            position: relative;
+            width: 35px;
+            height: 35px;
+            border: none;
+            background-color: #242423;
+            border-radius: 4px;
+            cursor: pointer;
+            vertical-align: middle;
+        }
+
+        #inputField #addBtn span {
+            display: block;
+            width: 2px;
+            height: 15px;
+            background-color: #FFE8AD;
+            position: absolute;
+            transform: translate(-50%, -50%);
+            top: 50%;
+            left: 50%;
+        }
+
+        #inputField #addBtn span:last-child {
+            transform: translate(-50%, -50%) rotate(-90deg);
+        }
+        #todoList {
+            list-style: none;
+            margin: 0;
+            padding: 10px;
+            text-align: left;
+        }
+
+        #todoList li {
+            padding: 10px 0;
+            user-select: none;
+        }
+
+        #todoList button {
+            width: 15px;
+            height: 15px;
+            background-color: #fff;
+            margin-right: 8px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        #todoList li.complete {
+            text-decoration: line-through;
+            color: green;
+        }
+
+        #todoList li.complete button::after {
+            content: "";
+            display: block;
+            width: 5px;
+            height: 10px;
+            transform: translate(-2px, -2px) rotate(45deg);
+            border-right: 2px solid #f1b116;
+            border-bottom: 2px solid #f1b116;
         }
 
         @import url('https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Nanum+Gothic&display=swap');
@@ -101,15 +175,17 @@
             background: rgba(0, 0, 0, 0.5);
             z-index: 1;
         }
+
         .mypostingbox_1 .info_card {
             position: fixed;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
             padding: 20px;
-            background: #ffffff;
+            background: #e5ff00;
             border-radius: 20px;
         }
+
         .mypostingbox_1 .info_card .info_close {
             display: block;
             padding: 0px 0px;
@@ -122,20 +198,24 @@
         .info_close {
             margin: 0px 10px 0px 10px
         }
+
         .mypostingbox {
             width: 500px;
             margin: 20px auto 20px auto;
             padding: 9px;
             border: 1px solid wheat;
         }
+
         .mypostingbox>mybtn {
             width: 100px;
             margin: 0px auto 0px auto;
         }
+
         .posting_button {
             width: 100px;
             margin: 20px 190px 10px 190px;
         }
+
         .visittitle {
             width: 700px;
 
@@ -144,6 +224,7 @@
             padding-top: 30px;
             margin: 30px auto 0px auto;
         }
+
         .visitinput {
             width: 700px;
 
@@ -152,10 +233,12 @@
             border: 1px solid gray;
             border-radius: 5px;
         }
+
         .visitwrap>button {
             justify-content: center;
             width: 500px;
         }
+
         .visitcontent {
             margin: 20px auto 20px auto;
             width: 1000px;
@@ -284,7 +367,71 @@
             window.location.reload();
         });
 
+        $(".todoCheckbtn").click(async function () {
+            $(".todoCheck").toggleClass('complete');
+        })
 
+        // HTML 요소의 이벤트 핸들러를 JavaScript로 지정
+        document.getElementById('todoInput').addEventListener('keydown', function (event) {
+            if (event.key === 'Enter') { // 엔터 키를 눌렀을 때
+                keyCodeCheck(); // keyCodeCheck() 함수 호출
+            }
+        });
+
+        const addBtn = document.querySelector('#addBtn'); // 추가 버튼 선택
+        const todoInput = document.querySelector('#todoInput');
+        addBtn.addEventListener('click', function () {
+            if (todoInput.value !== '') { // 빈 값 입력 방지
+                createTodo();
+            }
+        })
+
+        function keyCodeCheck() { // 엔터키로 추가
+            if (window.event.keyCode === 13 && todoInput.value !== '') {
+                createTodo();
+            }
+        }
+
+        function createTodo(storageData) {
+            let todoContents = todoInput.value;
+            if (storageData) {
+                todoContents = storageData.contents
+            }
+
+            const todoList = document.querySelector('#todoList');
+            const newLi = document.createElement('li');
+            const newBtn = document.createElement('button');
+            const newSpan = document.createElement('span');
+
+            newLi.appendChild(newBtn);
+            newLi.appendChild(newSpan);
+            // console.log(newLi)
+
+            newSpan.textContent = todoContents;
+
+            todoList.appendChild(newLi);
+            // console.log(todoList)
+
+            todoInput.value = '';
+
+            if (storageData && storageData.complete === true) { //체크 박스 정보 불러오기
+                newLi.classList.add('complete');
+            }
+
+            newBtn.addEventListener('click', () => {
+                newLi.classList.toggle('complete');
+                //saveItemsFn();
+            });
+
+            newLi.addEventListener('dblclick', () => {
+                newLi.remove();
+
+                //saveItemsFn();
+            });
+
+            //saveItemsFn();
+        };
+        //
         $("#commentbtn").click(async function () {
             let nickname = $('#nickname').val();
             let comment = $('#comment').val();
@@ -361,10 +508,17 @@
                     <p class="card-text">자기소개</p>
                     <p class="card-text">협업스타일</p>
                     <p class="card-text">활동상태:</p>
+                    <div id="inputField">
+                        <input type="text" id="todoInput" placeholder="할 일 추가하기">
+                        <button class="btn btn-primary" type="button" id="addBtn">
+                            <span></span>
+                            <span></span>
+                        </button>
+                    </div>
                     <ul id="todoList">
-                        <li class= complete>
-                            <button></button>
-                            <div class="card-text"></div>
+                        <li class="todoCheck">
+                            <button class="todoCheckbtn"></button>
+                            <span class="card-text"></span>
                         </li>
                     </ul>
                 </div>
