@@ -13,9 +13,9 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Black+Han+Sans&display=swap');
 
-        .Window{
+        .Window {
             width: 1500px;
-            margin:auto auto auto auto
+            margin: auto auto auto auto
         }
 
         .mytitle {
@@ -101,6 +101,7 @@
             background: rgba(0, 0, 0, 0.5);
             z-index: 1;
         }
+
         .mypostingbox_1 .info_card {
             position: fixed;
             top: 50%;
@@ -110,6 +111,7 @@
             background: #ffffff;
             border-radius: 20px;
         }
+
         .mypostingbox_1 .info_card .info_close {
             display: block;
             padding: 0px 0px;
@@ -118,23 +120,28 @@
             color: #fff;
             transition: box-shadow 0.2s;
         }
+
         .info_close {
             margin: 0px 10px 0px 10px
         }
+
         .mypostingbox {
             width: 500px;
             margin: 20px auto 20px auto;
             padding: 9px;
             border: 1px solid wheat;
         }
+
         .mypostingbox>mybtn {
             width: 100px;
             margin: 0px auto 0px auto;
         }
+
         .posting_button {
             width: 100px;
             margin: 20px 190px 10px 190px;
         }
+
         .visittitle {
             width: 700px;
 
@@ -143,6 +150,7 @@
             padding-top: 30px;
             margin: 30px auto 0px auto;
         }
+
         .visitinput {
             width: 700px;
 
@@ -151,10 +159,12 @@
             border: 1px solid gray;
             border-radius: 5px;
         }
+
         .visitwrap>button {
             justify-content: center;
             width: 500px;
         }
+
         .visitcontent {
             margin: 20px auto 20px auto;
             width: 1000px;
@@ -313,11 +323,22 @@
                         <h5 class="card-title">${nickname}</h5>
                         <p class="card-text">${comment}</p>
                     </div>
+                    <div class="cmtdlt" style=" text-align: center;">
+                    <button id="cmtdltbtn" data-docid="${doc.id} type="button" class="btn btn-outline-secondaryn cmtdltbtn">삭제</button>
+                    </div>
                 </div>
             </div>`;
             $('#visitcomment').append(temp_html);
         });
+                   
 
+        $(".cmtdltbtn").click(async function () {
+            const docId = $(this).data("docid");
+            console.log(docId);
+            await deleteDoc(doc(db, "comments", docId));
+            console.log("삭제 완료");
+            window.location.reload();
+        });
 
     </script>
 </head>
