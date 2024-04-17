@@ -101,7 +101,6 @@
             background: rgba(0, 0, 0, 0.5);
             z-index: 1;
         }
-
         .mypostingbox_1 .info_card {
             position: fixed;
             top: 50%;
@@ -111,7 +110,6 @@
             background: #ffffff;
             border-radius: 20px;
         }
-
         .mypostingbox_1 .info_card .info_close {
             display: block;
             padding: 0px 0px;
@@ -120,26 +118,47 @@
             color: #fff;
             transition: box-shadow 0.2s;
         }
-
         .info_close {
             margin: 0px 10px 0px 10px
         }
-
         .mypostingbox {
             width: 500px;
             margin: 20px auto 20px auto;
             padding: 9px;
             border: 1px solid wheat;
         }
-
         .mypostingbox>mybtn {
             width: 100px;
             margin: 0px auto 0px auto;
         }
-
         .posting_button {
             width: 100px;
             margin: 20px 190px 10px 190px;
+        }
+        .visittitle {
+            width: 700px;
+
+            text-align: center;
+
+            padding-top: 30px;
+            margin: 30px auto 0px auto;
+        }
+        .visitinput {
+            width: 700px;
+
+            padding: 30px;
+            margin: 30px auto 0px auto;
+            border: 1px solid gray;
+            border-radius: 5px;
+        }
+        .visitwrap>button {
+            justify-content: center;
+            width: 500px;
+        }
+        .visitcontent {
+            margin: 20px auto 20px auto;
+            width: 1000px;
+            margin: 20px auto 20px auto;
         }
     </style>
     <script type="module">
@@ -265,6 +284,41 @@
         });
 
 
+        $("#commentbtn").click(async function () {
+            let nickname = $('#nickname').val();
+            let comment = $('#comment').val();
+
+            let doc = {
+                'nickname': nickname,
+                'comment': comment
+            };
+            await addDoc(collection(db, "comments"), doc);
+            alert('등록 완료!')
+            window.location.reload();
+        })
+
+
+        let a = await getDocs(collection(db, "comments"));
+        a.forEach((doc) => {
+            let row = doc.data();
+            console.log(row);
+
+            let nickname = row['nickname'];
+            let comment = row['comment'];
+
+            let temp_html = `         
+            <div class="col">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">${nickname}</h5>
+                        <p class="card-text">${comment}</p>
+                    </div>
+                </div>
+            </div>`;
+            $('#visitcomment').append(temp_html);
+        });
+
+
     </script>
 </head>
 
@@ -363,6 +417,26 @@
 
         </div>
     </div>
+    <div class="visitwrap">
+        <div class="visittitle" style="font-size:35pt"><strong>방명록</strong></div>
+        <div class="visitinput">
+            <p>닉네임: <input id="nickname" type="text" /></p>
+            <div class="form-floating">
+                <textarea class="form-control" placeholder="Leave a comment here" id="comment"></textarea>
+                <label for="floatingTextarea">Comment</label>
+                <p></p>
+            </div>
+            <div style=" text-align: center;">
+                <button id="commentbtn" type="button" class="btn btn-secondary">등록</button>
+            </div>
+
+        </div>
+    </div>
+    <div class="visitcontent" id="visitbox">
+        <div id="visitcomment" class="row row-cols-1 row-cols-md-3 g-4">
+        </div>
+    </div>
+
 </body>
 
 </html>
