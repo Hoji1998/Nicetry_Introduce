@@ -333,7 +333,7 @@
                 console.log("DB에 일치하는 데이터가 없습니다.");
             }
         });
-        
+
         // 데이터 수정
         let updateDocId = '';
         $(".updateboxOpenClose").click(async function () {
@@ -374,7 +374,7 @@
             console.log(docId);
             await deleteDoc(doc(db, "introduceTeamMembers", docId));
             console.log("삭제 완료");
-            window.location.reload();
+            $(this).closest('.col').remove();
         });
 
         $("#commentbtn").click(async function () {
@@ -420,7 +420,7 @@
             console.log(docId);
             await deleteDoc(doc(db, "comments", docId));
             console.log("삭제 완료");
-            window.location.reload();
+            $(this).closest('.col').remove();
         });
 
     </script>
