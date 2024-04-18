@@ -58,6 +58,7 @@
             align-items: center;
             justify-content: center;
         }
+
         @import url('https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Nanum+Gothic&display=swap');
 
         .A {
@@ -119,6 +120,23 @@
             margin: 40px auto 10px auto;
         }
 
+        .button>button {
+
+            text-align: center
+        }
+
+        .profilebtn {
+            width: 130px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 0px auto 0px auto;
+        }
+
+        .profilebtn>button {
+            text-align: center;
+        }
+
         .mypostingbox {
             Background-color: rgba(255, 255, 255, 0.7);
         }
@@ -142,7 +160,7 @@
             left: 50%;
             transform: translate(-50%, -50%);
             padding: 20px;
-            background: #e5ff00;
+            background: #fffde8;
             border-radius: 20px;
             max-height: 100vh;
             overflow-y: auto;
@@ -167,10 +185,18 @@
             padding: 9px;
             border: 1px solid wheat;
         }
+
         .mybtn {
             border-radius: 5px;
         }
 
+        .showbtnarea {
+            margin: 0px auto 0px auto;
+        }
+
+        .showbtnarea>button {
+            margin: 0px 15px 0px 15px;
+        }
 
 
         .visittitle {
@@ -202,6 +228,7 @@
         .cmtdlt {
             margin-bottom: 10px;
         }
+
         .visitcontent {
             margin: 20px auto 20px auto;
             width: 1000px;
@@ -257,9 +284,10 @@
                     <div class="card-body">
                         <h5 class="card-title">${name}</h5>
                         <p class="card-text">${condition}</p>
-
+                        <div class="showbtnarea">
                         <button data-docid="${doc.id}" type="button" class="btn btn-outline-success showbtn">보기</button>
                         <button data-docid="${doc.id}" type="button" class="btn btn-outline-danger deletebtn">삭제</button>
+                        </div>
                     </div>
                 </div>
             </div>`;
@@ -465,11 +493,12 @@
                         <p class="card-text">활동상태:</p>
                         <p class="card-text">오늘업무:</p>
                         <div class="button">
-                            <button type="button" class="btn btn-secondary updateboxOpenClose">수정</button>
                         </div>
                     </div>
-                    <div class="button">
+                    <div class="profilebtn">
+                        <button type="button" class="btn btn-secondary updateboxOpenClose">수정</button>
                         <button type="button" class="btn btn-secondary info_close_button">닫기</button>
+
                     </div>
                 </div>
             </div>
