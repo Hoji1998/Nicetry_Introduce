@@ -115,9 +115,16 @@
             border-radius: 5px;
         }
 
-        .button {
+        .profilebtn {
+            width: 130px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 0px auto 0px auto;
+        }
 
-            margin: 40px auto 10px auto;
+        .profilebtn>button {
+            text-align: center;
         }
 
         .mypostingbox {
@@ -143,7 +150,7 @@
             left: 50%;
             transform: translate(-50%, -50%);
             padding: 20px;
-            background: #e5ff00;
+            background: #fffde8;
             border-radius: 20px;
             max-height: 100vh;
             overflow-y: auto;
@@ -173,7 +180,13 @@
             border-radius: 5px;
         }
 
+        .showbtnarea {
+            margin: 0px auto 0px auto;
+        }
 
+        .showbtnarea>button {
+            margin: 0px 15px 0px 15px;
+        }
 
         .visittitle {
             width: 700px;
@@ -260,9 +273,10 @@
                     <div class="card-body">
                         <h5 class="card-title">${name}</h5>
                         <p class="card-text">${condition}</p>
-
-                        <button data-docid="${doc.id}" type="button" class="btn btn-outline-success showbtn">보기</button>
-                        <button data-docid="${doc.id}" type="button" class="btn btn-outline-danger deletebtn">삭제</button>
+                        <div class="showbtnarea">
+                            <button data-docid="${doc.id}" type="button" class="btn btn-outline-success showbtn">보기</button>
+                            <button data-docid="${doc.id}" type="button" class="btn btn-outline-danger deletebtn">삭제</button>
+                        </div>
                     </div>
                 </div>
             </div>`;
@@ -333,7 +347,7 @@
                 console.log("DB에 일치하는 데이터가 없습니다.");
             }
         });
-        
+
         // 데이터 수정
         let updateDocId = '';
         $(".updateboxOpenClose").click(async function () {
@@ -475,11 +489,9 @@
                         <p class="card-text">협업스타일</p>
                         <p class="card-text">활동상태:</p>
                         <p class="card-text">오늘업무:</p>
-                        <div class="button">
-                            <button type="button" class="btn btn-secondary updateboxOpenClose">수정</button>
-                        </div>
                     </div>
-                    <div class="button">
+                    <div class="profilebtn">
+                        <button type="button" class="btn btn-secondary updateboxOpenClose">수정</button>
                         <button type="button" class="btn btn-secondary info_close_button">닫기</button>
                     </div>
                 </div>
