@@ -191,19 +191,8 @@
         }
 
         .button {
-            width: 200px;
-            margin: 20px auto 10px auto;
-        }
 
-        .button>.btn {
-
-            height: 35px;
-            width: 200px;
-
-        }
-
-        .postingbtn>.btn {
-            background-color: rgb(128, 255, 128);
+            margin: 40px auto 10px auto;
         }
 
         .mypostingbox {
@@ -254,16 +243,11 @@
             padding: 9px;
             border: 1px solid wheat;
         }
-
-        .mypostingbox>mybtn {
-            width: 100px;
-            margin: 0px auto 0px auto;
+        .mybtn {
+            border-radius: 5px;
         }
 
-        .posting_button {
-            width: 100px;
-            margin: 20px 190px 10px 190px;
-        }
+
 
         .visittitle {
             width: 700px;
@@ -288,9 +272,12 @@
 
         .visitwrap>button {
             justify-content: center;
-            width: 500px;
+
         }
 
+        .cmtdlt {
+            margin-bottom: 10px;
+        }
         .visitcontent {
             margin: 20px auto 20px auto;
             width: 1000px;
@@ -707,7 +694,7 @@
                 </div>
             </div>
 
-            <div id="openclose" class="button">
+            <div id="openclose" class="button" style=" text-align: center;">
                 <button type="button" class="btn btn-secondary">새 멤버 추가</button>
             </div>
 
@@ -748,8 +735,8 @@
                     <input type="email" class="form-control" id="work" placeholder="name@example.com">
                     <label for="floatingInput">오늘의업무</label>
                 </div>
-                <div class="mybtn">
-                    <button id="makecard" class="posting_button btn-light">등록</button>
+                <div class="mybtn" style=" text-align: center;">
+                    <button id="makecard" type="button" class="posting_button btn btn-secondary">등록</button>
                 </div>
 
 
