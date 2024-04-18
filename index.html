@@ -54,8 +54,8 @@
 
         #inputField #addBtn {
             position: relative;
-            width: 35px;
-            height: 35px;
+            width: 330px;
+            height: 20px;
             border: none;
             background-color: #242423;
             border-radius: 4px;
@@ -185,6 +185,8 @@
             padding: 20px;
             background: #e5ff00;
             border-radius: 20px;
+            max-height: 100vh;
+            overflow-y: auto;
         }
 
         .mypostingbox_1 .info_card .info_close {
@@ -432,7 +434,24 @@
 
             //saveItemsFn();
         };
-        //
+
+        function saveItemsFn() { // TODO LIST 데이터 저장하기
+            const saveItems = []; // 빈 배열 할당
+            for (let i = 0; i < todoList.children.length; i++) {
+                const todoObj = {
+                    contents: todoList.children[i].querySelector('span').textContent, // 리스트 목록
+                    complete: todoList.children[i].classList.contains('complete') // 완료 표시된 리스트
+                };
+                saveItems.push(todoObj); // 배열 추가
+            }
+
+            if (saveItems.length === 0) {
+                localStorage.removeItem('saved-items');
+            } else {
+                localStorage.setItem('saved-items', JSON.stringify(saveItems));
+            }
+        }
+
         $("#commentbtn").click(async function () {
             let nickname = $('#nickname').val();
             let comment = $('#comment').val();
@@ -530,8 +549,6 @@
                     </div>
                     <ul id="todoList">
                         <li class="todoCheck">
-                            <button class="todoCheckbtn"></button>
-                            <span class="card-text"></span>
                         </li>
                     </ul>
                 </div>
