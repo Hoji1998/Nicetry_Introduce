@@ -195,13 +195,14 @@
             margin: 20px auto 10px auto;
         }
 
-        .button > .btn {
-            
+        .button>.btn {
+
             height: 35px;
             width: 200px;
-       
+
         }
-        .postingbtn > .btn {
+
+        .postingbtn>.btn {
             background-color: rgb(128, 255, 128);
         }
 
@@ -346,9 +347,8 @@
                         <h5 class="card-title">${name}</h5>
                         <p class="card-text">${condition}</p>
 
-                        <button id="btn" type="button" class="btn btn-outline-info">수정</button>
-                        <button id="btn" data-docid="${doc.id}" type="button" class="btn btn-outline-success showbtn">보기</button>
-                        <button id="btn" data-docid="${doc.id}" type="button" class="btn btn-outline-danger deletebtn">삭제</button>
+                        <button data-docid="${doc.id}" type="button" class="btn btn-outline-success showbtn">보기</button>
+                        <button data-docid="${doc.id}" type="button" class="btn btn-outline-danger deletebtn">삭제</button>
                     </div>
                 </div>
             </div>`;
@@ -392,6 +392,7 @@
 
         $(".showbtn").click(async function () {
             const docId = $(this).data("docid");
+            updateDocId = docId;
             const docSnapshot = await getDoc(doc(db, "introduceTeamMembers", docId));
             if (docSnapshot.exists()) {
                 const data = docSnapshot.data();
@@ -412,10 +413,38 @@
         });
 
         // 데이터 수정
+        let updateDocId = '';
+        $(".updateboxOpenClose").click(async function () {
+            $("#updatebox").toggle();
+        })
         $(".changebtn").click(async function () {
-            console.log("수정 완료");
+            console.log(updateDocId);
+            let url = $('#url').val();
+            let name = $('#name').val();
+            let addr = $('#addr').val();
+            let advantage = $('#advantage').val();
+            let Mbti = $('#Mbti').val();
+            let introduce = $('#introduce').val();
+            let workstyle = $('#workstyle').val();
+            let condition = $('#condition').val();
+            let work = $('#work').val();
+
+            const docRef = doc(db, "introduceTeamMembers", updateDocId);
+            await updateDoc(docRef, {
+                url: url,
+                name: name,
+                addr: addr,
+                advantage: advantage,
+                Mbti: Mbti,
+                introduce: introduce,
+                workstyle: workstyle,
+                condition: condition,
+                work: work
+            });
+            alert("수정 완료");
             window.location.reload();
         });
+
 
         // 데이터 삭제
         $(".deletebtn").click(async function () {
@@ -430,7 +459,7 @@
             $(".todoCheck").toggleClass('complete');
         })
 
-        // HTML 요소의 이벤트 핸들러를 JavaScript로 지정
+
         document.getElementById('todoInput').addEventListener('keydown', function (event) {
             if (event.key === 'Enter') { // 엔터 키를 눌렀을 때
                 keyCodeCheck(); // keyCodeCheck() 함수 호출
@@ -467,10 +496,7 @@
             // console.log(newLi)
 
             newSpan.textContent = todoContents;
-
             todoList.appendChild(newLi);
-            // console.log(todoList)
-
             todoInput.value = '';
 
             if (storageData && storageData.complete === true) { //체크 박스 정보 불러오기
@@ -494,17 +520,22 @@
         function saveItemsFn() { // TODO LIST 데이터 저장하기
             const saveItems = []; // 빈 배열 할당
             for (let i = 0; i < todoList.children.length; i++) {
-                const todoObj = {
-                    contents: todoList.children[i].querySelector('span').textContent, // 리스트 목록
-                    complete: todoList.children[i].classList.contains('complete') // 완료 표시된 리스트
-                };
-                saveItems.push(todoObj); // 배열 추가
+                const listItem = todoList.children[i].querySelector('span');
+                if (listItem) {
+                    const todoObj = {
+                        contents: todoList.children[i].querySelector('span').textContent, // 리스트 목록
+                        complete: todoList.children[i].classList.contains('complete') // 완료 표시된 리스트
+                    };
+                    saveItems.push(todoObj); // 배열 추가
+                }
             }
 
             if (saveItems.length === 0) {
-                localStorage.removeItem('saved-items');
+
             } else {
-                localStorage.setItem('saved-items', JSON.stringify(saveItems));
+                saveItems.forEach(element => {
+                    addDoc(collection(db, "workList"), element);
+                });
             }
         }
 
@@ -606,6 +637,9 @@
                         <p class="card-text">협업스타일</p>
                         <p class="card-text">활동상태:</p>
                         <p class="card-text">오늘업무:</p>
+                        <div class="button">
+                            <button type="button" class="btn btn-secondary updateboxOpenClose">수정</button>
+                        </div>
                         <div id="inputField">
                             <input type="text" id="todoInput" placeholder="할 일 추가하기">
                             <button class="btn btn-primary" type="button" id="addBtn">
@@ -618,18 +652,66 @@
                             </li>
                         </ul>
                     </div>
-                    <div class="info_close">
-                        <button type="button" id="info_close_button" class="info_close_button btn-light">닫기</button>
+                    <div class="button">
+                        <button type="button" class="btn btn-secondary info_close_button">닫기</button>
+                    </div>
+                </div>
+            </div>
+            <div class="mypostingbox_1" id="updatebox" style="display: none;">
+                <div class="info_card" style="width: 600px;">
+                    <div class="mypostingbox">
+                        <h1>수정사항</h1>
+                        <div class="form-floating mb-3">
+                            <input type="email" class="form-control" id="url" placeholder="name@example.com">
+                            <label for="floatingInput">이미지주소</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="email" class="form-control" id="name" placeholder="name@example.com">
+                            <label for="floatingInput">이름</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="email" class="form-control" id="addr" placeholder="name@example.com">
+                            <label for="floatingInput">블로그주소</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="email" class="form-control" id="advantage" placeholder="name@example.com">
+                            <label for="floatingInput">장점</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="email" class="form-control" id="Mbti" placeholder="name@example.com">
+                            <label for="floatingInput">Mbti</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="email" class="form-control" id="introduce" placeholder="name@example.com">
+                            <label for="floatingInput">자기소개</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="email" class="form-control" id="workstyle" placeholder="name@example.com">
+                            <label for="floatingInput">협업스타일</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="email" class="form-control" id="condition" placeholder="name@example.com">
+                            <label for="floatingInput">활동상태</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="email" class="form-control" id="work" placeholder="name@example.com">
+                            <label for="floatingInput">오늘의업무</label>
+                        </div>
+                        <div class="button">
+                            <button class="btn btn-secondary changebtn">수정</button>
+                        </div>
+                    </div>
+                    <div class="button">
+                        <button type="button" class="btn btn-secondary updateboxOpenClose">닫기</button>
                     </div>
                 </div>
             </div>
 
             <div id="openclose" class="button">
                 <button type="button" class="btn btn-secondary">새 멤버 추가</button>
-                </div>
+            </div>
 
             <div class="mypostingbox" id="postingbox" style="display: none;">
-
                 <div class="form-floating mb-3">
                     <input type="email" class="form-control" id="url" placeholder="name@example.com">
                     <label for="floatingInput">이미지주소</label>
@@ -686,11 +768,11 @@
                 <label for="floatingTextarea">Comment</label>
                 <p></p>
             </div>
-        
+
             <div class="postingbtn" style=" text-align: center;">
-            <button id="commentbtn" type="button" class="btn btn-secondary">등록</button>
-        </div>
-        
+                <button id="commentbtn" type="button" class="btn btn-secondary">등록</button>
+            </div>
+
         </div>
     </div>
     <div class="visitcontent" id="visitbox">
