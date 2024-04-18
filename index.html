@@ -58,6 +58,7 @@
             align-items: center;
             justify-content: center;
         }
+
         @import url('https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Nanum+Gothic&display=swap');
 
         .A {
@@ -167,6 +168,7 @@
             padding: 9px;
             border: 1px solid wheat;
         }
+
         .mybtn {
             border-radius: 5px;
         }
@@ -202,6 +204,7 @@
         .cmtdlt {
             margin-bottom: 10px;
         }
+
         .visitcontent {
             margin: 20px auto 20px auto;
             width: 1000px;
@@ -267,15 +270,15 @@
         });
 
         $("#makecard").click(async function () {
-            let url = $('#url').val();
-            let name = $('#name').val();
-            let addr = $('#addr').val();
-            let advantage = $('#advantage').val();
-            let Mbti = $('#Mbti').val();
-            let introduce = $('#introduce').val();
-            let workstyle = $('#workstyle').val();
-            let condition = $('#condition').val();
-            let work = $('#work').val();
+            let url = $('#url_create').val();
+            let name = $('#name_create').val();
+            let addr = $('#addr_create').val();
+            let advantage = $('#advantage_create').val();
+            let Mbti = $('#Mbti_create').val();
+            let introduce = $('#introduce_create').val();
+            let workstyle = $('#workstyle_create').val();
+            let condition = $('#condition_create').val();
+            let work = $('#work_create').val();
 
             let doc = {
                 'url': url,
@@ -305,11 +308,20 @@
             const docId = $(this).data("docid");
             updateDocId = docId;
             const docSnapshot = await getDoc(doc(db, "introduceTeamMembers", docId));
+
             if (docSnapshot.exists()) {
                 const data = docSnapshot.data();
+                const blogAddress = data.addr;
+
+                // 하이퍼링크 요소 생성
+                const linkElement = document.createElement('a');
+                linkElement.href = blogAddress;
+                linkElement.textContent = blogAddress; // 주소를 텍스트로 설정
+
                 $("#postingbox1 .card-img-top").attr("src", data.url);
                 $("#postingbox1 .card-title").text("이름: " + data.name);
-                $("#postingbox1 .card-text:eq(0)").text("블로그 주소: " + data.addr);
+                $("#postingbox1 .card-text:eq(0)").text("블로그 주소: ");
+                $("#postingbox1 .card-text:eq(0)").append(linkElement); // linkElement를 텍스트로 추가
                 $("#postingbox1 .card-text:eq(1)").text("장점: " + data.advantage);
                 $("#postingbox1 .card-text:eq(2)").text("MBTI: " + data.Mbti);
                 $("#postingbox1 .card-text:eq(3)").text("자기소개: " + data.introduce);
@@ -317,12 +329,11 @@
                 $("#postingbox1 .card-text:eq(5)").text("활동 상태: " + data.condition);
                 $("#postingbox1 .card-text:eq(6)").text("오늘의 업무: " + data.work);
                 $('#postingbox1').toggle();
-            }
-            else {
+            } else {
                 console.log("DB에 일치하는 데이터가 없습니다.");
             }
         });
-
+        
         // 데이터 수정
         let updateDocId = '';
         $(".updateboxOpenClose").click(async function () {
@@ -529,39 +540,39 @@
 
             <div class="mypostingbox" id="postingbox" style="display: none;">
                 <div class="form-floating mb-3">
-                    <input type="email" class="form-control" id="url" placeholder="name@example.com">
+                    <input type="email" class="form-control" id="url_create" placeholder="name@example.com">
                     <label for="floatingInput">이미지주소</label>
                 </div>
                 <div class="form-floating mb-3">
-                    <input type="email" class="form-control" id="name" placeholder="name@example.com">
+                    <input type="email" class="form-control" id="name_create" placeholder="name@example.com">
                     <label for="floatingInput">이름</label>
                 </div>
                 <div class="form-floating mb-3">
-                    <input type="email" class="form-control" id="addr" placeholder="name@example.com">
+                    <input type="email" class="form-control" id="addr_create" placeholder="name@example.com">
                     <label for="floatingInput">블로그주소</label>
                 </div>
                 <div class="form-floating mb-3">
-                    <input type="email" class="form-control" id="advantage" placeholder="name@example.com">
+                    <input type="email" class="form-control" id="advantage_create" placeholder="name@example.com">
                     <label for="floatingInput">장점</label>
                 </div>
                 <div class="form-floating mb-3">
-                    <input type="email" class="form-control" id="Mbti" placeholder="name@example.com">
+                    <input type="email" class="form-control" id="Mbti_create" placeholder="name@example.com">
                     <label for="floatingInput">Mbti</label>
                 </div>
                 <div class="form-floating mb-3">
-                    <input type="email" class="form-control" id="introduce" placeholder="name@example.com">
+                    <input type="email" class="form-control" id="introduce_create" placeholder="name@example.com">
                     <label for="floatingInput">자기소개</label>
                 </div>
                 <div class="form-floating mb-3">
-                    <input type="email" class="form-control" id="workstyle" placeholder="name@example.com">
+                    <input type="email" class="form-control" id="workstyle_create" placeholder="name@example.com">
                     <label for="floatingInput">협업스타일</label>
                 </div>
                 <div class="form-floating mb-3">
-                    <input type="email" class="form-control" id="condition" placeholder="name@example.com">
+                    <input type="email" class="form-control" id="condition_create" placeholder="name@example.com">
                     <label for="floatingInput">활동상태</label>
                 </div>
                 <div class="form-floating mb-3">
-                    <input type="email" class="form-control" id="work" placeholder="name@example.com">
+                    <input type="email" class="form-control" id="work_create" placeholder="name@example.com">
                     <label for="floatingInput">오늘의업무</label>
                 </div>
                 <div class="mybtn" style=" text-align: center;">
