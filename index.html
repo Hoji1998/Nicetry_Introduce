@@ -20,7 +20,7 @@
         }
 
         .Window {
-            width: 1500px;
+            width: 1400px;
             margin: auto auto auto auto
         }
 
@@ -50,7 +50,7 @@
 
         .teamintro {
 
-            width: 1500px;
+            width: 1400px;
             margin: 10px auto 0px auto;
 
             display: flex;
@@ -168,7 +168,7 @@
 
         .spaceline {
             background-color: black;
-            width: 1500px;
+            width: 1400px;
             height: 4px;
             margin: 40px auto 20px auto;
 
@@ -180,7 +180,7 @@
         }
 
         .mycards {
-            width: 1500px;
+            width: 1400px;
             margin: 20px auto 20px auto;
         }
 
@@ -195,9 +195,14 @@
             margin: 20px auto 10px auto;
         }
 
-        .btn {
-            width: 80px;
-            margin: 5px;
+        .button > .btn {
+            
+            height: 35px;
+            width: 200px;
+       
+        }
+        .postingbtn > .btn {
+            background-color: rgb(128, 255, 128);
         }
 
         .mypostingbox {
@@ -277,7 +282,7 @@
             margin: 30px auto 0px auto;
             border: 1px solid gray;
             border-radius: 5px;
-            
+
         }
 
         .visitwrap>button {
@@ -553,137 +558,140 @@
 </head>
 
 <body>
-    <div class="Window">
-        <div class="mytitle">
-            <div style="font-size:95pt">INTRODUCE 'NT'</div>
-        </div>
-
-        <div class="teamintro">
-            <div class="A" style="display: inline-block">
-                <h1 class="card-title pricing-card-title"><strong>NT</strong><small
-                        class="text-body-secondary fw-light">(Nice Try)</small>
-                </h1>
-                <p class="teamtxt">모든 팀원의 mbti에 'NT'가 들어가서 NT라고 했습니다.<br>Nice Try의 줄임말로 처음부터 완벽한 결과물 보다는<br>'좋은 시도'였다는
-                    마인드로<br>시도를 두려워하지 않으며 차근차근 성장해나가자는 의미입니다.</p>
+    <div class="wrap">
+        <div class="Window">
+            <div class="mytitle">
+                <div style="font-size:95pt">INTRODUCE 'NT'</div>
             </div>
-            <div class="B" style="display: inline-block">
-                <h1 class="card-title pricing-card-title"><strong>Team Rule</strong></h1>
-                <p class="teamtxt">
-                    - 결석과 같은 사항이 있을 시, Slack 톡방을 통해 팀원에게 알리기<br>
-                    - 점심시간 13:00 ~ 14:00, 저녁시간 18:00 ~ 19:00 을 준수하기<br>
-                    - 모종의 이유로 식사시간이 달라질 경우 Slack 팀방 혹은 팀원에게 전달하기
-                </p>
+
+            <div class="teamintro">
+                <div class="A" style="display: inline-block">
+                    <h1 class="card-title pricing-card-title"><strong>NT</strong><small
+                            class="text-body-secondary fw-light">(Nice Try)</small>
+                    </h1>
+                    <p class="teamtxt">모든 팀원의 mbti에 'NT'가 들어가서 NT라고 했습니다.<br>Nice Try의 줄임말로 처음부터 완벽한 결과물 보다는<br>'좋은
+                        시도'였다는
+                        마인드로<br>시도를 두려워하지 않으며 차근차근 성장해나가자는 의미입니다.</p>
+                </div>
+                <div class="B" style="display: inline-block">
+                    <h1 class="card-title pricing-card-title"><strong>Team Rule</strong></h1>
+                    <p class="teamtxt">
+                        - 결석과 같은 사항이 있을 시, Slack 톡방을 통해 팀원에게 알리기<br>
+                        - 점심시간 13:00 ~ 14:00, 저녁시간 18:00 ~ 19:00 을 준수하기<br>
+                        - 모종의 이유로 식사시간이 달라질 경우 Slack 팀방 혹은 팀원에게 전달하기
+                    </p>
+                </div>
+            </div>
+
+            <div class="spaceline"></div>
+
+            <div class="members">
+                <div style="font-size:50pt">MEMBERS</div>
+            </div>
+
+            <div class="mycards">
+                <div id="card" class="row row-cols-1 row-cols-md-6 g-4  ">
+                </div>
+            </div>
+
+            <div class="mypostingbox_1" id="postingbox1" style="display: none;">
+                <div class="info_card" style="width: 450px;">
+                    <img src="url()" class="card-img-top" alt="..." width="400" height="400">
+                    <div class="card-body">
+                        <h5 class="card-title">이름</h5>
+                        <p class="card-text">블로그주소</p>
+                        <p class="card-text">장점</p>
+                        <p class="card-text">mbti</p>
+                        <p class="card-text">자기소개</p>
+                        <p class="card-text">협업스타일</p>
+                        <p class="card-text">활동상태:</p>
+                        <p class="card-text">오늘업무:</p>
+                        <div id="inputField">
+                            <input type="text" id="todoInput" placeholder="할 일 추가하기">
+                            <button class="btn btn-primary" type="button" id="addBtn">
+                                <span></span>
+                                <span></span>
+                            </button>
+                        </div>
+                        <ul id="todoList">
+                            <li class="todoCheck">
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="info_close">
+                        <button type="button" id="info_close_button" class="info_close_button btn-light">닫기</button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="openclose" class="button">
+                <button type="button" class="btn btn-secondary">새 멤버 추가</button>
+                </div>
+
+            <div class="mypostingbox" id="postingbox" style="display: none;">
+
+                <div class="form-floating mb-3">
+                    <input type="email" class="form-control" id="url" placeholder="name@example.com">
+                    <label for="floatingInput">이미지주소</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="email" class="form-control" id="name" placeholder="name@example.com">
+                    <label for="floatingInput">이름</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="email" class="form-control" id="addr" placeholder="name@example.com">
+                    <label for="floatingInput">블로그주소</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="email" class="form-control" id="advantage" placeholder="name@example.com">
+                    <label for="floatingInput">장점</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="email" class="form-control" id="Mbti" placeholder="name@example.com">
+                    <label for="floatingInput">Mbti</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="email" class="form-control" id="introduce" placeholder="name@example.com">
+                    <label for="floatingInput">자기소개</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="email" class="form-control" id="workstyle" placeholder="name@example.com">
+                    <label for="floatingInput">협업스타일</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="email" class="form-control" id="condition" placeholder="name@example.com">
+                    <label for="floatingInput">활동상태</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="email" class="form-control" id="work" placeholder="name@example.com">
+                    <label for="floatingInput">오늘의업무</label>
+                </div>
+                <div class="mybtn">
+                    <button id="makecard" class="posting_button btn-light">등록</button>
+                </div>
+
+
             </div>
         </div>
 
         <div class="spaceline"></div>
 
-        <div class="members">
-            <div style="font-size:50pt">MEMBERS</div>
+        <div class="visitwrap">
+            <div class="members" style="font-size:50pt">GUEST BOOK</div>
         </div>
-
-        <div class="mycards">
-            <div id="card" class="row row-cols-1 row-cols-md-6 g-4  ">
+        <div class="visitinput">
+            <p><strong>닉네임</strong>: <input id="nickname" type="text" /></p>
+            <div class="form-floating">
+                <textarea class="form-control" placeholder="Leave a comment here" id="comment"></textarea>
+                <label for="floatingTextarea">Comment</label>
+                <p></p>
             </div>
-        </div>
-
-        <div class="mypostingbox_1" id="postingbox1" style="display: none;">
-            <div class="info_card" style="width: 450px;">
-                <img src="url()" class="card-img-top" alt="..." width="400" height="400">
-                <div class="card-body">
-                    <h5 class="card-title">이름</h5>
-                    <p class="card-text">블로그주소</p>
-                    <p class="card-text">장점</p>
-                    <p class="card-text">mbti</p>
-                    <p class="card-text">자기소개</p>
-                    <p class="card-text">협업스타일</p>
-                    <p class="card-text">활동상태:</p>
-                    <p class="card-text">오늘업무:</p>
-                    <div id="inputField">
-                        <input type="text" id="todoInput" placeholder="할 일 추가하기">
-                        <button class="btn btn-primary" type="button" id="addBtn">
-                            <span></span>
-                            <span></span>
-                        </button>
-                    </div>
-                    <ul id="todoList">
-                        <li class="todoCheck">
-                        </li>
-                    </ul>
-                </div>
-                <div class="info_close">
-                    <button type="button" id="info_close_button" class="info_close_button btn-light">닫기</button>
-                </div>
-            </div>
-        </div>
-
-        <div id="openclose" class="button">
-            <button type="button" class="button btn-light">새 멤버 추가</button>
-        </div>
-
-        <div class="mypostingbox" id="postingbox" style="display: none;">
-
-            <div class="form-floating mb-3">
-                <input type="email" class="form-control" id="url" placeholder="name@example.com">
-                <label for="floatingInput">이미지주소</label>
-            </div>
-            <div class="form-floating mb-3">
-                <input type="email" class="form-control" id="name" placeholder="name@example.com">
-                <label for="floatingInput">이름</label>
-            </div>
-            <div class="form-floating mb-3">
-                <input type="email" class="form-control" id="addr" placeholder="name@example.com">
-                <label for="floatingInput">블로그주소</label>
-            </div>
-            <div class="form-floating mb-3">
-                <input type="email" class="form-control" id="advantage" placeholder="name@example.com">
-                <label for="floatingInput">장점</label>
-            </div>
-            <div class="form-floating mb-3">
-                <input type="email" class="form-control" id="Mbti" placeholder="name@example.com">
-                <label for="floatingInput">Mbti</label>
-            </div>
-            <div class="form-floating mb-3">
-                <input type="email" class="form-control" id="introduce" placeholder="name@example.com">
-                <label for="floatingInput">자기소개</label>
-            </div>
-            <div class="form-floating mb-3">
-                <input type="email" class="form-control" id="workstyle" placeholder="name@example.com">
-                <label for="floatingInput">협업스타일</label>
-            </div>
-            <div class="form-floating mb-3">
-                <input type="email" class="form-control" id="condition" placeholder="name@example.com">
-                <label for="floatingInput">활동상태</label>
-            </div>
-            <div class="form-floating mb-3">
-                <input type="email" class="form-control" id="work" placeholder="name@example.com">
-                <label for="floatingInput">오늘의업무</label>
-            </div>
-            <div class="mybtn">
-                <button id="makecard" class="posting_button btn-light">등록</button>
-            </div>
-
-
-        </div>
-    </div>
-
-    <div class="spaceline"></div>
-
-    <div class="visitwrap">
-        <div class="members" style="font-size:50pt">GUEST BOOK</div>
-    </div>
-    <div class="visitinput">
-        <p><strong>닉네임</strong>: <input id="nickname" type="text" /></p>
-        <div class="form-floating">
-            <textarea class="form-control" placeholder="Leave a comment here" id="comment"></textarea>
-            <label for="floatingTextarea">Comment</label>
-            <p></p>
-        </div>
-        <div style=" text-align: center;">
+        
+            <div class="postingbtn" style=" text-align: center;">
             <button id="commentbtn" type="button" class="btn btn-secondary">등록</button>
         </div>
-
-    </div>
+        
+        </div>
     </div>
     <div class="visitcontent" id="visitbox">
         <div id="visitcomment" class="row row-cols-1 row-cols-md-3 g-4">
@@ -692,7 +700,7 @@
     <div class="spaceline"></div>
     <div class="pagenum" style="font-size:20pt">Page 1</div>
 
-
+    </div>
 </body>
 
 </html>
