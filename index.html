@@ -13,18 +13,37 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Black+Han+Sans&display=swap');
 
+        body {
+            background-image: url('https://pixabay.com/get/gedfb9c17243f5106e813b9c968912a1109c568048bee597c6c03f7954fcd25fca872960f65b95ad3b176328c48c2fa5aa6279753cf90c793b9eb0bb60a9bb6f6_1920.jpg');
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
         .Window {
             width: 1500px;
             margin: auto auto auto auto
         }
 
         .mytitle {
+            width: 1200px;
+
+            text-align: center;
+            color: #3B170B;
+
+            padding: 30px auto 5px auto;
+            margin: 80px auto 0px auto;
+
+            font-family: "Black Han Sans", sans-serif;
+        }
+
+        .members {
             width: 700px;
 
             text-align: center;
+            color: #3B170B;
 
-            padding: 30px;
-            margin: 30px auto 0px auto;
+            padding: 10px;
+            margin: 20px auto 30px auto;
 
             font-family: "Black Han Sans", sans-serif;
         }
@@ -118,13 +137,13 @@
         @import url('https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Nanum+Gothic&display=swap');
 
         .A {
-            width: 500px;
-            height: 250px;
-            padding: 30px;
-            margin: 30px;
+            width: 700px;
+            height: 290px;
+            padding: 40px;
+            margin: 30px 10px 20px 0px;
 
-            background-color: whitesmoke;
-            border: 1px solid gray;
+            Background-color: rgba(255, 255, 255, 0.5);
+            border: 2px solid rgba(0, 0, 0, 0.4);
             border-radius: 5px;
 
             line-height: 30px;
@@ -133,25 +152,40 @@
         }
 
         .B {
-            width: 700px;
-            height: 250px;
-            padding: 30px;
-            margin: 30px;
+            width: 850px;
+            height: 290px;
+            padding: 40px;
+            margin: 30px 0px 20px 10px;
 
-            background-color: whitesmoke;
-            border: 1px solid grey;
+            Background-color: rgba(255, 255, 255, 0.5);
+            border: 2px solid rgba(0, 0, 0, 0.4);
             border-radius: 5px;
+
+            line-height: 30px;
 
             font-family: "Nanum Gothic", sans-serif;
         }
 
+        .spaceline {
+            background-color: black;
+            width: 1500px;
+            height: 4px;
+            margin: 40px auto 20px auto;
+
+        }
+
         .teamtxt {
             padding-top: 15px;
+            font-size: 17px;
         }
 
         .mycards {
             width: 1500px;
             margin: 20px auto 20px auto;
+        }
+
+        .card-body {
+            Background-color: rgba(255, 255, 255, 0.5);
         }
 
         .button {
@@ -162,6 +196,10 @@
         .btn {
             width: 80px;
             margin: 5px;
+        }
+
+        .mypostingbox {
+            Background-color: rgba(255, 255, 255, 0.7);
         }
 
         .mypostingbox_1 {
@@ -219,15 +257,17 @@
 
         .visittitle {
             width: 700px;
+            color: #3B170B;
 
             text-align: center;
 
-            padding-top: 30px;
+            padding-top: 10px;
             margin: 30px auto 0px auto;
         }
 
         .visitinput {
             width: 700px;
+            Background-color: rgba(255, 255, 255, 0.7);
 
             padding: 30px;
             margin: 30px auto 0px auto;
@@ -244,6 +284,14 @@
             margin: 20px auto 20px auto;
             width: 1000px;
             margin: 20px auto 20px auto;
+        }
+
+        .pagenum {
+            text-align: center;
+            color: #3B170B;
+            margin: 0px auto 50px auto;
+
+            font-family: "Black Han Sans", sans-serif;
         }
     </style>
     <script type="module">
@@ -485,23 +533,31 @@
 <body>
     <div class="Window">
         <div class="mytitle">
-            <div style="font-size:50pt">Introduce NT </div>
+            <div style="font-size:95pt">INTRODUCE 'NT'</div>
         </div>
+
         <div class="teamintro">
             <div class="A" style="display: inline-block">
                 <h1 class="card-title pricing-card-title"><strong>NT</strong><small
                         class="text-body-secondary fw-light">(Nice Try)</small>
                 </h1>
-                <p class="teamtxt">처음부터 완벽한 결과물 보다는<br>시도를 두려워하지 않으며'좋은 시도'였다는 마인드로<br>차근차근 성장해나가자는 의미</p>
+                <p class="teamtxt">팀원 전체의 mbti에 'NT'가 들어가서 NT라고 했습니다.<br>Nice Try의 줄임말로 처음부터 완벽한 결과물 보다는<br>'좋은 시도'였다는
+                    마인드로<br>시도를 두려워하지 않으며 차근차근 성장해나가자는 의미입니다.</p>
             </div>
             <div class="B" style="display: inline-block">
                 <h1 class="card-title pricing-card-title"><strong>Team Rule</strong></h1>
                 <p class="teamtxt">
-                <h6>- 결석과 같은 사항이 있을 시, Slack 톡방을 통해 팀원에게 알리기</h6>
-                <h6>- 점심시간 13:00 ~ 14:00, 저녁시간 18:00 ~ 19:00 을 준수하기</h6>
-                <h6>- 모종의 이유로 식사시간이 달라질 경우 Slack 팀방 혹은 팀원에게 전달하기</h6>
+                    - 결석과 같은 사항이 있을 시, Slack 톡방을 통해 팀원에게 알리기<br>
+                    - 점심시간 13:00 ~ 14:00, 저녁시간 18:00 ~ 19:00 을 준수하기<br>
+                    - 모종의 이유로 식사시간이 달라질 경우 Slack 팀방 혹은 팀원에게 전달하기
                 </p>
             </div>
+        </div>
+
+        <div class="spaceline"></div>
+
+        <div class="members">
+            <div style="font-size:50pt">MEMBERS</div>
         </div>
 
         <div class="mycards">
@@ -590,25 +646,32 @@
 
         </div>
     </div>
-    <div class="visitwrap">
-        <div class="visittitle" style="font-size:35pt"><strong>방명록</strong></div>
-        <div class="visitinput">
-            <p>닉네임: <input id="nickname" type="text" /></p>
-            <div class="form-floating">
-                <textarea class="form-control" placeholder="Leave a comment here" id="comment"></textarea>
-                <label for="floatingTextarea">Comment</label>
-                <p></p>
-            </div>
-            <div style=" text-align: center;">
-                <button id="commentbtn" type="button" class="btn btn-secondary">등록</button>
-            </div>
 
+    <div class="spaceline"></div>
+
+    <div class="visitwrap">
+        <div class="members" style="font-size:50pt">GUEST BOOK</div>
+    </div>
+    <div class="visitinput">
+        <p><strong>닉네임</strong>: <input id="nickname" type="text" /></p>
+        <div class="form-floating">
+            <textarea class="form-control" placeholder="Leave a comment here" id="comment"></textarea>
+            <label for="floatingTextarea">Comment</label>
+            <p></p>
         </div>
+        <div style=" text-align: center;">
+            <button id="commentbtn" type="button" class="btn btn-secondary">등록</button>
+        </div>
+
+    </div>
     </div>
     <div class="visitcontent" id="visitbox">
         <div id="visitcomment" class="row row-cols-1 row-cols-md-3 g-4">
         </div>
     </div>
+    <div class="spaceline"></div>
+    <div class="pagenum" style="font-size:20pt">Page 1</div>
+
 
 </body>
 
